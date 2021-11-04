@@ -1,5 +1,4 @@
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -10,8 +9,7 @@ import java.io.IOException;
 
 public class Game {
     Screen screen;
-    private int x = 10;
-    private int y = 10;
+    private Hero hero;
 
     Game() {
         try {
@@ -24,13 +22,15 @@ public class Game {
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if necessary
 
+            hero = new Hero(10,10);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     private void draw() throws IOException {
         screen.clear();
-        screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
+        hero.draw(screen);
         screen.refresh();
     }
 
@@ -39,29 +39,27 @@ public class Game {
           draw();
           KeyStroke key = screen.readInput();
           if(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') screen.close();
-          else if(key.getKeyType() == KeyType.EOF) break;
+          if(key.getKeyType() == KeyType.EOF) break;
           processKey(key);
       }
     }
 
     public void processKey(KeyStroke key) {
       /* if(key.getKeyType() == KeyType.ArrowUp)
-         System.out.println(key);
-      if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q')
-       System.out.println(key);
-      */
+         System.out.println(key); */
+
         switch(key.getKeyType()) {
            case ArrowUp :
-               y--;
+               hero.moveUp();
                break;
            case ArrowRight :
-               x++;
+               hero.moveRight();
                break;
            case ArrowLeft :
-               x--;
+               hero.moveLeft();
                break;
            case ArrowDown :
-               y++;
+               hero.moveDown();
                break;
        }
     }
