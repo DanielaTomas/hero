@@ -22,7 +22,7 @@ public class Game {
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if necessary
 
-            hero = new Hero(10,10);
+            hero = new Hero(new Position(10,10));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,23 +45,24 @@ public class Game {
     }
 
     public void processKey(KeyStroke key) {
-      /* if(key.getKeyType() == KeyType.ArrowUp)
-         System.out.println(key); */
 
         switch(key.getKeyType()) {
            case ArrowUp :
-               hero.moveUp();
+               moveHero(hero.moveUp());
                break;
            case ArrowRight :
-               hero.moveRight();
+               moveHero(hero.moveRight());
                break;
            case ArrowLeft :
-               hero.moveLeft();
+               moveHero(hero.moveLeft());
                break;
            case ArrowDown :
-               hero.moveDown();
+               moveHero(hero.moveDown());
                break;
        }
     }
 
+    private void moveHero(Position position) {
+         hero.setPosition(position);
+    }
 }
