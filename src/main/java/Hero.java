@@ -7,7 +7,7 @@ public class Hero {
     private Position position;
 
     Hero(Position position) {
-        this.position = position;
+        this.position = new Position(position.getX(), position.getY());
     }
 
     public Position moveUp() {
@@ -27,11 +27,11 @@ public class Hero {
     }
 
     public void setPosition(Position position) {
-        this.position.x = position.x;
-        this.position.y = position.y;
+        this.position.setX(position.getX());
+        this.position.setY(position.getY());
     }
 
     public void draw(Screen screen) throws IOException {
-        screen.setCharacter(position.x, position.y, TextCharacter.fromCharacter('X')[0]);
+        screen.setCharacter(position.getX(), position.getY(), TextCharacter.fromCharacter('X')[0]);
     }
 }
