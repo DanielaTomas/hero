@@ -1,4 +1,5 @@
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -8,7 +9,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
 
 public class Game {
-    Screen screen;
+    private Screen screen;
     private Arena arena;
 
     Game() {
@@ -22,7 +23,7 @@ public class Game {
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if necessary
 
-            arena = new Arena(10,10);
+            arena = new Arena(39,19);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -30,8 +31,9 @@ public class Game {
     }
 
     private void draw() throws IOException {
+        TextGraphics graphics = screen.newTextGraphics();
         screen.clear();
-        arena.draw(screen);
+        arena.draw(graphics);
         screen.refresh();
     }
 
