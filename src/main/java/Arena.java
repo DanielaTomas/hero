@@ -13,6 +13,7 @@ public class Arena {
     private final Hero hero;
     private final List<Wall> walls;
     private final List<Coin> coins;
+    private final List<Monster> monsters;
 
     Arena(int width, int height) {
         this.width = width;
@@ -20,21 +21,26 @@ public class Arena {
         hero = new Hero(new Position(10, 10));
         this.walls = createWalls();
         this.coins = createCoins();
+        this.monsters = createMonsters();
     }
 
     public void processKey(KeyStroke key) {
         switch (key.getKeyType()) {
             case ArrowUp:
                 moveHero(hero.moveUp());
+                //moveMonsters();
                 break;
             case ArrowRight:
                 moveHero(hero.moveRight());
+                //moveMonsters();
                 break;
             case ArrowLeft:
                 moveHero(hero.moveLeft());
+                //moveMonsters();
                 break;
             case ArrowDown:
                 moveHero(hero.moveDown());
+                //moveMonsters();
                 break;
         }
     }
@@ -47,6 +53,9 @@ public class Arena {
             wall.draw(graphics);
         for(Coin coin : coins)
             coin.draw(graphics);
+        for(Monster monster : monsters) {
+            monster.draw(graphics);
+        }
     }
 
     private void moveHero(Position position) {
@@ -94,4 +103,29 @@ public class Arena {
             }
         }
     }
+
+    private List<Monster> createMonsters() {
+        Random random = new Random();
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (int i = 0; i < 5; i++)
+            monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        return monsters;
+    }
+
+    /*private Position move() {
+        return
+    }
+
+    private void moveMonsters() {
+        for(Monster monster : monsters) {
+            //...
+        }
+    }
+
+    private boolean verifyMonsterCollisions() {
+        for(Monster monster : monsters) {
+            if(hero.getPosition().equals(monster.getPosition())) return true;
+        }
+        return false;
+    }*/
 }

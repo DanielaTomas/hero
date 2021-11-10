@@ -12,11 +12,6 @@ public abstract class Element {
         return position;
     }
 
-    public void setPosition(Position position) {
-        this.position.setX(position.getX());
-        this.position.setY(position.getY());
-    }
-
     public Position moveUp() {
         return new Position(position.getX(), position.getY() - 1);
     }
