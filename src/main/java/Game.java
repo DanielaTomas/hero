@@ -23,7 +23,7 @@ public class Game {
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if necessary
 
-            arena = new Arena(39,19);
+            arena = new Arena(40,20);
 
         } catch (IOException e) {
             e.printStackTrace();
