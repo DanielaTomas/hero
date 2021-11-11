@@ -2,8 +2,8 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 public abstract class Element {
     final Position position;
 
-    Element(Position position) {
-        this.position = new Position(position.getX(), position.getY());
+    Element(int x, int y) {
+        this.position = new Position(x, y);
     }
 
     public abstract void draw(TextGraphics graphics);

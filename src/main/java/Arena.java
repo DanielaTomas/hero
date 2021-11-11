@@ -18,29 +18,30 @@ public class Arena {
     Arena(int width, int height) {
         this.width = width;
         this.height = height;
-        hero = new Hero(new Position(10, 10));
+        hero = new Hero(10,10);
         this.walls = createWalls();
         this.coins = createCoins();
         this.monsters = createMonsters();
     }
 
     public void processKey(KeyStroke key) {
+        if(verifyMonsterCollisions() || coins.isEmpty()) return;
         switch (key.getKeyType()) {
             case ArrowUp:
                 moveHero(hero.moveUp());
-                //moveMonsters();
+                moveMonsters();
                 break;
             case ArrowRight:
                 moveHero(hero.moveRight());
-                //moveMonsters();
+                moveMonsters();
                 break;
             case ArrowLeft:
                 moveHero(hero.moveLeft());
-                //moveMonsters();
+                moveMonsters();
                 break;
             case ArrowDown:
                 moveHero(hero.moveDown());
-                //moveMonsters();
+                moveMonsters();
                 break;
         }
     }
@@ -107,18 +108,18 @@ public class Arena {
     private List<Monster> createMonsters() {
         Random random = new Random();
         ArrayList<Monster> monsters = new ArrayList<>();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
             monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
         return monsters;
     }
 
-    /*private Position move() {
-        return
-    }
-
     private void moveMonsters() {
         for(Monster monster : monsters) {
-            //...
+            Position p = monster.move();
+            while(!canHeroMove(p)) {
+                p = monster.move();
+            }
+            monster.setPosition(p);
         }
     }
 
@@ -127,5 +128,5 @@ public class Arena {
             if(hero.getPosition().equals(monster.getPosition())) return true;
         }
         return false;
-    }*/
+    }
 }

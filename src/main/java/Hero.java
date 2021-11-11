@@ -5,8 +5,8 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Hero extends Element{
 
-    Hero(Position position) {
-        super(position);
+    Hero(int x, int y) {
+        super(x,y);
     }
 
     public void draw(TextGraphics graphics) {

@@ -6,7 +6,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 public class Coin extends Element {
 
     Coin(int width, int height) {
-        super(new Position(width, height));
+        super(width, height);
     }
 
     public void draw(TextGraphics graphics) {
