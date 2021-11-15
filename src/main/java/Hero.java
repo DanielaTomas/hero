@@ -15,8 +15,19 @@ public class Hero extends Element{
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
     }
 
-    public void setPosition(Position position) {
-        this.position.setX(position.getX());
-        this.position.setY(position.getY());
+    public Position moveUp() {
+        return new Position(position.getX(), position.getY() - 1);
+    }
+
+    public Position moveRight() {
+        return new Position(position.getX() + 1, position.getY());
+    }
+
+    public Position moveLeft() {
+        return new Position(position.getX() - 1, position.getY());
+    }
+
+    public Position moveDown() {
+        return new Position(position.getX(), position.getY() + 1);
     }
 }

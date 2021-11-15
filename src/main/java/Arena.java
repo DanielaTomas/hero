@@ -25,8 +25,7 @@ public class Arena {
     }
 
     public void processKey(KeyStroke key) {
-        if(verifyMonsterCollisions() || coins.isEmpty()) return;
-        switch (key.getKeyType()) {
+        switch(key.getKeyType()) {
             case ArrowUp:
                 moveHero(hero.moveUp());
                 moveMonsters();
@@ -67,8 +66,21 @@ public class Arena {
 
     private boolean canHeroMove(Position position) {
         if(position.getX() >= 0 && position.getX() <= width && position.getY() >= 0 && position.getY() <= height) {
-            for (Wall wall : walls) {
+            for(Wall wall : walls) {
                 if(wall.getPosition().equals(position)) return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean canMonsterMove(Position position) {
+        if(position.getX() >= 0 && position.getX() <= width && position.getY() >= 0 && position.getY() <= height) {
+            for(Wall wall : walls) {
+                if(wall.getPosition().equals(position)) return false;
+            }
+            for(Monster monster : monsters) {
+                if(monster.getPosition().equals(position)) return false;
             }
             return true;
         }
@@ -108,25 +120,30 @@ public class Arena {
     private List<Monster> createMonsters() {
         Random random = new Random();
         ArrayList<Monster> monsters = new ArrayList<>();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++) {
             monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        }
         return monsters;
     }
 
     private void moveMonsters() {
         for(Monster monster : monsters) {
             Position p = monster.move();
-            while(!canHeroMove(p)) {
+            while(!canMonsterMove(p)) {
                 p = monster.move();
             }
             monster.setPosition(p);
         }
     }
 
-    private boolean verifyMonsterCollisions() {
+    public boolean verifyMonsterCollisions() {
         for(Monster monster : monsters) {
             if(hero.getPosition().equals(monster.getPosition())) return true;
         }
         return false;
+    }
+
+    public List<Coin> getCoins() {
+        return coins;
     }
 }

@@ -44,10 +44,27 @@ public class Game {
           if(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') screen.close();
           if(key.getKeyType() == KeyType.EOF) break;
           processKey(key);
+          if(arena.verifyMonsterCollisions()) {
+              printMessage(key, "Game Over!!");
+          }
+          else if(arena.getCoins().isEmpty()) {
+              printMessage(key, "You win!!");
+          }
       }
     }
 
-    public void processKey(KeyStroke key) throws IOException {
-       arena.processKey(key);
+    private void printMessage(KeyStroke key, String s) throws IOException {
+        TextGraphics graphics = screen.newTextGraphics();
+        screen.clear();
+        graphics.putString(15, 10, s);
+        screen.refresh();
+        while(key.getKeyType() != KeyType.EOF) {
+            key = screen.readInput();
+            if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') screen.close();
+        }
+    }
+
+    public void processKey(KeyStroke key) {
+        arena.processKey(key);
     }
 }

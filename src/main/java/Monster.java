@@ -19,13 +19,6 @@ public class Monster extends Element{
 
     public Position move() {
         Random random = new Random();
-        int a = random.nextInt(3)-1;
-        int b = random.nextInt(3)-1;
-        return new Position(position.getX()+a,position.getY()+b);
-    }
-
-    public void setPosition(Position position) {
-        this.position.setX(position.getX());
-        this.position.setY(position.getY());
+        return new Position(position.getX()+random.nextInt(3)-1,position.getY()+random.nextInt(3)-1);
     }
 }
